@@ -23,15 +23,23 @@ while game_is_on:
     answer_state = answer_state.capitalize()
 
     a = data[data["state"] == answer_state]
-    to_dict = a.to_dict()
-    x_y_key = list(to_dict["state"].keys())
+
+    # to_dict = a.to_dict()
+    # x_y_key = list(to_dict["state"].keys())
     current_score += 1
 
+    try:
+        assigning = assign_state()
+        assigning.assign((a.x.item(), a.y.item()), a.state.item())
+    except ValueError:
+        print("no such state")
+        current_score -= 1
 
 
 
-    assigning = assign_state()
-    assigning.assign((to_dict["x"][x_y_key[0]], to_dict["y"][x_y_key[0]]), f"{to_dict['state'][x_y_key[0]]}")
+
+
+
 
 
 screen.exitonclick()
